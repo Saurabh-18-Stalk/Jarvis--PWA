@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#061426">
+  <meta name="description" content="JARVIS personal AI assistant">
+  <title>JARVIS AI</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/jarvis-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="brand">J.A.R.V.I.S.</div>
+        <div class="subtitle">PERSONAL AI SYSTEM <span class="version">V1.0</span></div>
+      </div>
+      <button id="settingsBtn" class="icon-btn" aria-label="Settings" title="Settings">⚙</button>
+    </header>
+
+    <section class="status-row">
+      <span class="status-dot"></span><span id="statusText">LOCAL SYSTEM READY</span>
+      <span class="status-right" id="connectionText">OFFLINE MODE</span>
+    </section>
+
+    <section class="core-section" aria-label="JARVIS status">
+      <div class="core-wrap">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="orbit orbit-three"></div>
+        <div class="core-glow"></div>
+        <div class="core"><div class="core-inner"><span>J</span></div></div>
+        <div class="orbit-dot"></div>
+      </div>
+      <div class="core-caption">HOW MAY I ASSIST YOU?</div>
+      <div class="small-caption">VOICE • INTELLIGENCE • AUTOMATION</div>
+    </section>
+
+    <section class="chat-panel" aria-label="Conversation">
+      <div class="chat-heading"><span>CONVERSATION</span><button id="clearBtn" class="text-btn">CLEAR</button></div>
+      <div id="messages" class="messages" aria-live="polite">
+        <article class="message jarvis"><div class="speaker">JARVIS</div><div class="bubble">Hello. JARVIS is ready. Try “What time is it?” or ask me to save a note.</div></article>
+      </div>
+    </section>
+
+    <form id="composer" class="composer">
+      <input id="prompt" type="text" autocomplete="off" placeholder="Ask JARVIS anything…" maxlength="1000">
+      <button class="send-btn" type="submit" aria-label="Send">➤</button>
+    </form>
+
+    <section class="controls">
+      <button id="micBtn" class="control-btn primary"><span>🎙</span> TALK</button>
+      <button id="speakBtn" class="control-btn"><span>🔊</span> REPEAT</button>
+      <button id="notesBtn" class="control-btn"><span>▤</span> NOTES</button>
+    </section>
+    <footer>LOCAL COMMANDS WORK OFFLINE • CLOUD AI NEEDS YOUR PRIVATE BACKEND</footer>
+  </main>
+
+  <dialog id="settingsDialog" class="settings">
+    <form method="dialog" class="dialog-head"><strong>JARVIS SETTINGS</strong><button class="icon-btn">✕</button></form>
+    <label for="backendUrl">Private JARVIS backend URL</label>
+    <input id="backendUrl" type="url" placeholder="https://your-server.example/chat">
+    <p class="hint">Optional. The backend must accept JSON { "message": "..." } and return { "reply": "..." }. Do not put an OpenAI API key in this app.</p>
+    <label for="language">Voice recognition language</label>
+    <select id="language">
+      <option value="en-IN">English (India)</option>
+      <option value="hi-IN">Hindi</option>
+      <option value="mr-IN">Marathi</option>
+      <option value="en-US">English (US)</option>
+    </select>
+    <div class="dialog-actions"><button id="saveSettings" class="control-btn primary" type="button">SAVE SETTINGS</button></div>
+  </dialog>
+
+  <dialog id="notesDialog" class="settings">
+    <form method="dialog" class="dialog-head"><strong>MY NOTES</strong><button class="icon-btn">✕</button></form>
+    <div id="notesList" class="notes-list"></div>
+    <div class="dialog-actions"><button id="closeNotes" class="control-btn" type="button">CLOSE</button></div>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
