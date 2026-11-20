@@ -20,9 +20,9 @@ AI_MODEL = os.getenv("AI_MODEL", "").strip()
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY", "")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-CORS_ORIGINS = [x.strip() for x in os.getenv("CORS_ORIGINS", "http://localhost:5500").split(",") if x.strip()]
+CORS_ORIGINS = [x.strip() for x in os.getenv("CORS_ORIGINS", "https://saurabh-18-stalk.github.io,http://localhost:5500").split(",") if x.strip()]
 
-app = FastAPI(title="JARVIS API", version="2.2.0")
+app = FastAPI(title="JARVIS API", version="3.0.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
@@ -133,7 +133,7 @@ def health():
     return {
         "status": "ok",
         "service": "jarvis-api",
-        "version": "2.2.0",
+        "version": "3.0.0",
         "ai_provider": AI_PROVIDER,
         "ai_configured": bool(
             (AI_PROVIDER == "openrouter" and OPENROUTER_API_KEY)
