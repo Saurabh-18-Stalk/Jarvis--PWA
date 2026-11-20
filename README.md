@@ -38,3 +38,20 @@ Then enter only the backend HTTPS URL and JARVIS token in JARVIS Settings. Never
 
 ## Local backend development
 See [backend/README.md](./backend/README.md). GitHub Pages is not a backend host. Do not commit real `.env` files or API keys.
+
+## Recommended roadmap for a reliable JARVIS
+
+Build and test these in order; do not enable risky automation before the core assistant is stable.
+
+1. **Core reliability:** backend connection indicator, clear offline mode, request timeouts, retry action, readable error messages, and saved chat history.
+2. **Voice experience:** push-to-talk by default, selectable English/Hindi/Marathi speech, stop-speaking control, and visible microphone status. Avoid always-on microphone listening.
+3. **Private AI connection:** keep provider API keys only on the server; use HTTPS, a private JARVIS token, rate limits, and persistent database storage.
+4. **Personal workspace:** user-selected file import, document summaries, generated-file export, searchable notes, and explicit confirmation before overwriting or deleting anything.
+5. **Productivity integrations:** reminders and calendar/email connections through official OAuth integrations; ask for confirmation before sending or changing events.
+6. **Creator tools:** YouTube research and script packages, captions, thumbnails briefs, and social post drafts. Publishing and messaging must require official APIs and final user approval.
+7. **Developer tools:** code generation, explanation, test suggestions, and downloadable project files. Never execute generated code automatically.
+8. **Release quality:** test on the target Android version and Windows, verify microphone/file permissions, provide an in-app diagnostics screen, and publish signed release builds with versioned update notes.
+
+### Important capability boundaries
+
+JARVIS can only access files that the user explicitly selects or grants through supported platform permissions. A web app cannot silently browse the whole phone or computer. Background wake-word listening, unrestricted device control, automatic social publishing, and arbitrary app control need separate native permissions, platform-specific integrations, and security reviews. Treat them as later, opt-in features—not promises of the current build.
