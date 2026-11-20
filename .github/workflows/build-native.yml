@@ -1,5 +1,9 @@
 name: Build JARVIS native apps
 on:
+  pull_request:
+    paths:
+      - 'native_app/**'
+      - '.github/workflows/build-native.yml'
   workflow_dispatch:
   push:
     paths:
@@ -19,6 +23,16 @@ jobs:
           channel: stable
       - name: Generate Android and Windows platform folders
         run: flutter create --platforms=android,windows --project-name jarvis_companion .
+      - name: Add Android microphone permission
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('android/app/src/main/AndroidManifest.xml')
+          s = p.read_text()
+          s = s.replace('<application', '<uses-permission android:name="android.permission.RECORD_AUDIO" /><uses-permission android:name="android.permission.INTERNET" /><application', 1)
+          p.write_text(s)
+          PY
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk --release
