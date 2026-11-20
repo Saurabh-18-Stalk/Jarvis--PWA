@@ -1,10 +1,12 @@
-# Next steps
-1. Review the pull request before merging.
-2. After merge, wait for GitHub Pages deployment and open the published URL.
-3. Deploy the FastAPI backend separately on a trusted HTTPS host.
-4. Set a long random backend bearer token in the backend environment and enter the same token in the app Settings.
-5. Configure CORS to allow only your GitHub Pages origin.
-6. Integrate an AI provider on the server only; never expose its key in browser code.
-7. Test on Android Chrome: install PWA, microphone permission, Hindi/Marathi voice availability, offline shell, notes and history.
+# JARVIS v2.3 deployment checklist
 
-The included API chat route is a placeholder response, not model inference. SQLite is local to the backend host and may require a persistent disk.
+1. Wait for GitHub Pages deployment and open the published URL.
+2. Install the PWA from Android Chrome or a desktop browser.
+3. Test local time/date, notes, delete, chat history, export, offline reload and microphone permissions.
+4. Test Hindi and Marathi speech on the actual device; browser support varies.
+5. Deploy backend/ on a Python 3.10+ HTTPS host.
+6. Set private JARVIS_TOKEN, AI_PROVIDER, selected provider key, exact CORS_ORIGINS and persistent DATABASE_PATH.
+7. Open /health and verify status and ai_configured.
+8. In JARVIS Settings, enter backend URL and matching JARVIS token; Save and Test backend.
+
+GitHub Pages is static hosting and cannot run FastAPI. AI keys stay on the backend host. SQLite needs persistent storage or data may be lost after host restarts. AI chat needs internet. Wake word, fully offline speech recognition, Windows automation and screen understanding remain future Windows companion work.
