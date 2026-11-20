@@ -23,6 +23,20 @@ jobs:
           channel: stable
       - name: Generate Android and Windows platform folders
         run: flutter create --platforms=android,windows --project-name jarvis_companion .
+      - name: Set Android compile SDK to 36
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          candidates = [Path('android/app/build.gradle.kts'), Path('android/app/build.gradle')]
+          for p in candidates:
+              if not p.exists():
+                  continue
+              s = p.read_text()
+              s = s.replace('compileSdk = flutter.compileSdkVersion', 'compileSdk = 36')
+              s = s.replace('compileSdkVersion flutter.compileSdkVersion', 'compileSdkVersion 36')
+              p.write_text(s)
+          PY
       - name: Add Android microphone permission
         shell: bash
         run: |
