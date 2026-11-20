@@ -1,0 +1,47 @@
+name: Build JARVIS native apps
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'native_app/**'
+      - '.github/workflows/build-native.yml'
+    branches: [main]
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: native_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Generate Android and Windows platform folders
+        run: flutter create --platforms=android,windows --project-name jarvis_companion .
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jarvis-android-apk
+          path: native_app/build/app/outputs/flutter-apk/app-release.apk
+  windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: native_app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Generate Android and Windows platform folders
+        run: flutter create --platforms=android,windows --project-name jarvis_companion .
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter build windows --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jarvis-windows-release
+          path: native_app/build/windows/x64/runner/Release/**
